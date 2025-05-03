@@ -20,3 +20,101 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar-custom {
+    height: 56px;
+    background-color: #080808;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.nav-container {
+    height: 56px;
+}
+
+.navcolor {
+    color: #C3C3C3 ;
+}
+
+.navimage {
+    max-width: 130px ;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #1a1a1a;
+    padding: 5px;
+    border-radius: 50px;
+    width: 661.55px;
+    height: 36px;
+    margin-top: 1px;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    height: 33px;
+}
+
+.search-bar::placeholder {
+    color: #C3C3C3;
+}
+
+.search-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-img {
+    max-width: 24px;
+    max-height: 24px;
+}
+
+.watchlist-container {
+    display: flex;
+    align-items: center; /* Vertically centers the icon and text */
+
+}
+
+.watchlist-icon {
+    margin-right: 1px; /* Space between the icon and the text */
+}
+
+.btn-container {
+    display: flex;
+    align-items: center; /* Vertically centers the button in the navbar */
+    justify-content: center; /* Centers the button horizontally */
+}
+
+.btn {
+    width: 104px;
+    height: 32px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center; /* Centers the text vertically */
+    justify-content: center; /* Centers the text horizontally */
+}
+
+.btn-light {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.btn-light:hover {
+    background-color: #ddd; /* Change to your desired hover color */
+}
+

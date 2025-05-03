@@ -10,20 +10,21 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">MovieMate</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+        <nav class="navbar-custom navbar-expand-sm">
+            <div class="navbar-custom">
+                <a asp-area="" asp-page="/Index"> <img class="navimage" src="~/images/MovieMateLogo.png" alt="MovieMateLogo" /> </a>
+                <div class="d-sm-inline-flex">
+                    <ul class="navbar-nav">
+                        <li class="watchlist-container">
+                            <img class="watchlist-icon" src="~/images/WatchlistIcon.png" alt="WatchlistIcon" />
+                            <a class="navcolor nav-link" style="padding-left: 1px; asp-area=" asp-page="/Index">Watchlist</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <li class="search-container">
+                            <input class="search-bar" type="text" placeholder="Search" />
+                            <button class="search-btn"><img class="search-img" src="~/images/SearchIcon.png" alt="SearchIcon" /></button>
+                        </li>
+                        <li class="btn-container">
+                            <button class="btn btn-light">Sign in</button>
                         </li>
                     </ul>
                 </div>
