@@ -51,6 +51,7 @@ body {
     width: 661.55px;
     height: 36px;
     margin-top: 1px;
+    margin-left: 150px;
 }
 
 .search-bar {
@@ -82,18 +83,18 @@ body {
 
 .watchlist-container {
     display: flex;
-    align-items: center; /* Vertically centers the icon and text */
-
+    align-items: center;
+    margin-left: 30px;
 }
 
 .watchlist-icon {
-    margin-right: 1px; /* Space between the icon and the text */
+    margin-right: 1px;
 }
 
 .btn-container {
     display: flex;
-    align-items: center; /* Vertically centers the button in the navbar */
-    justify-content: center; /* Centers the button horizontally */
+    align-items: center;
+    justify-content: center;
 }
 
 .btn {
@@ -105,8 +106,9 @@ body {
     transition: background-color 0.3s ease;
     border: 1px solid transparent;
     display: inline-flex;
-    align-items: center; /* Centers the text vertically */
-    justify-content: center; /* Centers the text horizontally */
+    align-items: center;
+    justify-content: center;
+    margin-left: 150px;
 }
 
 .btn-light {
@@ -115,6 +117,6 @@ body {
 }
 
 .btn-light:hover {
-    background-color: #ddd; /* Change to your desired hover color */
+    background-color: #ddd;
 }
 
