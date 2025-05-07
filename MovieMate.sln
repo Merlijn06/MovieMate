@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMate", "MovieMate\MovieMate.csproj", "{74EDE46B-C6AB-4090-B4EC-D8CB43407820}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMate.WebApp", "MovieMate\MovieMate.WebApp.csproj", "{74EDE46B-C6AB-4090-B4EC-D8CB43407820}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMate.Models", "MovieMate.Models\MovieMate.Models.csproj", "{1BDDB1F8-B361-4F3E-B374-AB81A1C4CF1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMate.BLL", "MovieMate.BLL\MovieMate.BLL.csproj", "{F81DDE0A-36C9-4AC8-BBDA-C6ED90617495}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieMate.DAL", "MovieMate.DAL\MovieMate.DAL.csproj", "{4CBABA85-F488-4EEC-BE49-FF372A99FD77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{74EDE46B-C6AB-4090-B4EC-D8CB43407820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74EDE46B-C6AB-4090-B4EC-D8CB43407820}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74EDE46B-C6AB-4090-B4EC-D8CB43407820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDDB1F8-B361-4F3E-B374-AB81A1C4CF1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDDB1F8-B361-4F3E-B374-AB81A1C4CF1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDDB1F8-B361-4F3E-B374-AB81A1C4CF1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDDB1F8-B361-4F3E-B374-AB81A1C4CF1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F81DDE0A-36C9-4AC8-BBDA-C6ED90617495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81DDE0A-36C9-4AC8-BBDA-C6ED90617495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81DDE0A-36C9-4AC8-BBDA-C6ED90617495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81DDE0A-36C9-4AC8-BBDA-C6ED90617495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBABA85-F488-4EEC-BE49-FF372A99FD77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBABA85-F488-4EEC-BE49-FF372A99FD77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBABA85-F488-4EEC-BE49-FF372A99FD77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBABA85-F488-4EEC-BE49-FF372A99FD77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
