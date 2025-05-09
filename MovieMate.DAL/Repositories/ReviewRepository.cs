@@ -71,7 +71,7 @@ namespace MovieMate.DAL.Repositories
         public async Task<int> AddAsync(Review review)
         {
             using var connection = CreateConnection();
-            // Remember: Reviews table has a UNIQUE constraint on (UserID, MovieID)
+            // Reviews table has a UNIQUE constraint on (UserID, MovieID)
             var sql = @"
                 INSERT INTO Reviews (UserID, MovieID, RatingValue, Comment, CreatedAt, UpdatedAt)
                 VALUES (@UserId, @MovieId, @RatingValue, @Comment, NOW(), NOW());

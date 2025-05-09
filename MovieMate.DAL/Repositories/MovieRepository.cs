@@ -76,7 +76,6 @@ namespace MovieMate.DAL.Repositories
         public async Task<bool> UpdateAsync(Movie movie)
         {
             using var connection = CreateConnection();
-            // UpdatedAt is handled by DB ON UPDATE CURRENT_TIMESTAMP or NOW()
             var sql = @"
                 UPDATE Movies SET
                     Title = @Title,

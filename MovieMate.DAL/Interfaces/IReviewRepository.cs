@@ -16,6 +16,6 @@ namespace MovieMate.DAL.Interfaces
         Task<int> AddAsync(Review review);
         Task<bool> UpdateAsync(Review review);
         Task<bool> DeleteAsync(int reviewId);
-        Task<bool> UserHasReviewedMovieAsync(int userId, int movieId); // More direct check than GetReviewByUserAndMovieAsync if only existence is needed
+        Task<bool> UserHasReviewedMovieAsync(int userId, int movieId);
     }
 }
