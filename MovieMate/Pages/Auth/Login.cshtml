@@ -1,0 +1,56 @@
+﻿@page
+@model MovieMate.WebApp.Pages.Auth.LoginModel
+@{
+    ViewData["Title"] = "Log In";
+    // You might want a specific layout for Auth pages if it differs significantly
+    // Layout = "_AuthLayout";
+}
+
+@* Apply a container class that centers content and fits the dark theme *@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            @* You can place your logo here if desired *@
+            @* <img src="~/images/logo-dark-theme.png" alt="MovieMate Logo" style="height: 50px;" /> *@
+            <h1 class="h3 mb-3 fw-normal">@ViewData["Title"] to MovieMate</h1>
+        </div>
+
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Username" class="form-control auth-input" autocomplete="username" aria-required="true" placeholder="Username" />
+                <label asp-for="Input.Username">Username</label>
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" type="password" class="form-control auth-input" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="checkbox mb-3 auth-checkbox-area">
+                <label asp-for="Input.RememberMe">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </label>
+            </div>
+
+            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary auth-button">Log In</button>
+
+            <div class="mt-4 text-center auth-links">
+                <p>
+                    Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register here</a>
+                </p>
+                @* <p>
+                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                </p> *@
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

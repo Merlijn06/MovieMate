@@ -1,122 +1,209 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
+/* Navbar Customizations */
 .navbar-custom {
     height: 56px;
-    background-color: #080808;
+    background-color: #080808; /* Your dark background */
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 20px; /* Add some padding */
+    position: sticky; /* Makes navbar stick to top */
+    top: 0;
+    z-index: 1030; /* Ensure it's above other content */
+    width: 100%;
 }
 
-.nav-container {
-    height: 56px;
-}
-
-.navcolor {
-    color: #C3C3C3 ;
+.navbar-custom-container {
+    display: flex;
+    justify-content: space-between; /* Pushes logo/nav to left, auth to right */
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Or your preferred max-width for content */
+    margin: 0 auto; /* Center the container */
 }
 
 .navimage {
-    max-width: 130px ;
+    max-height: 35px; /* Adjusted for typical navbar height */
+    max-width: auto; /* Let it scale with height */
+}
+
+.navbar-nav-custom {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.nav-item-custom {
+    display: flex; /* Makes items in li align nicely */
+    align-items: center;
+}
+
+.watchlist-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Space after logo */
+    margin-right: 20px; /* Space before search */
+}
+
+.watchlist-icon {
+    height: 20px; /* Adjust size */
+    width: auto;
+    margin-right: 5px;
+}
+
+.navcolor.nav-link { /* More specific selector */
+    color: #C3C3C3;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem; /* Adjust padding */
+}
+
+    .navcolor.nav-link:hover {
+        color: #ffffff;
+    }
+
+
+.search-container-wrapper {
+    flex-grow: 1; /* Allows search to take available space */
+    display: flex;
+    justify-content: center; /* Center search within its wrapper */
 }
 
 .search-container {
     display: flex;
     align-items: center;
     background-color: #1a1a1a;
-    padding: 5px;
-    border-radius: 50px;
-    width: 661.55px;
+    padding: 2px 5px 2px 15px; /* Adjusted padding */
+    border-radius: 20px; /* More rounded */
+    width: 100%; /* Take up space in its wrapper */
+    max-width: 500px; /* Max width for search bar */
     height: 36px;
-    margin-top: 1px;
-    margin-left: 150px;
 }
 
 .search-bar {
-    width: 100%;
-    padding: 10px;
-    background-color: #1a1a1a;
+    flex-grow: 1; /* Input takes available space */
+    background-color: transparent; /* Transparent background */
     color: #fff;
     border: none;
-    border-radius: 50px;
     font-size: 14px;
-    height: 33px;
+    padding: 5px 0; /* Remove default padding if it conflicts */
+    outline: none; /* Remove outline on focus */
 }
 
-.search-bar::placeholder {
-    color: #C3C3C3;
-}
+    .search-bar::placeholder {
+        color: #888; /* Lighter placeholder */
+    }
 
 .search-btn {
     background-color: transparent;
     border: none;
     color: #fff;
     cursor: pointer;
+    padding: 5px; /* Add some padding */
+    margin-left: 5px;
+    display: flex; /* For centering icon */
+    align-items: center;
+    justify-content: center;
 }
 
 .search-img {
-    max-width: 24px;
-    max-height: 24px;
+    max-width: 18px; /* Slightly smaller icon */
+    max-height: 18px;
 }
 
-.watchlist-container {
+/* Auth Actions Styling */
+.auth-actions-container {
     display: flex;
     align-items: center;
-    margin-left: 30px;
 }
 
-.watchlist-icon {
-    margin-right: 1px;
+.btn-container-custom .nav-item-custom {
+    margin-left: 10px; /* Space between auth buttons */
 }
 
-.btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn {
-    width: 104px;
-    height: 32px;
+/* General button styling for consistency with your design */
+.btn-signin-custom, .btn-register-custom, .btn-logout-custom {
+    padding: 6px 15px;
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: 1px solid transparent;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 150px;
+    border: 1px solid transparent;
+    font-weight: 500; /* Medium font weight */
 }
 
-.btn-light {
-    background-color: #f1f1f1;
-    color: #333;
+.btn-signin-custom {
+    background-color: #f1f1f1; /* Light button as in your original */
+    color: #121212; /* Dark text */
 }
 
-.btn-light:hover {
-    background-color: #ddd;
+    .btn-signin-custom:hover {
+        background-color: #dcdcdc;
+    }
+
+.btn-register-custom {
+    background-color: transparent; /* Or a secondary color */
+    color: #f1f1f1;
+    border: 1px solid #f1f1f1; /* Outline button */
 }
 
+    .btn-register-custom:hover {
+        background-color: #f1f1f1;
+        color: #121212;
+    }
+
+.btn-logout-custom {
+    background-color: #4F4F4F; /* A neutral dark grey */
+    color: #e0e0e0;
+    border: 1px solid #666;
+}
+
+    .btn-logout-custom:hover {
+        background-color: #3d3d3d;
+        border-color: #555;
+    }
+
+/* Main Content Area */
+.main-content-container {
+    padding-top: 20px; /* Space below sticky navbar */
+    padding-bottom: 80px; /* Space above footer */
+}
+
+
+/* Footer Customizations */
+.footer-custom {
+    background-color: #080808; /* Match navbar */
+    color: #888; /* Muted text color */
+    padding: 20px 0;
+    text-align: center;
+    position: absolute; /* Or fixed if you want it always at bottom */
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Match body margin-bottom */
+    line-height: 20px; /* Adjust line height */
+}
+
+.footer-link {
+    color: #aaa;
+    text-decoration: none;
+}
+
+    .footer-link:hover {
+        color: #fff;
+    }
+
+/* Ensure body has space for footer */
+body {
+    margin-bottom: 60px; /* Should match footer height */
+    background-color: #121212; /* Consistent dark theme */
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Example font stack */
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}

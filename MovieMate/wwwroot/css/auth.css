@@ -1,0 +1,105 @@
+﻿/* Add to wwwroot/css/site.css or a dedicated auth.css linked in _Layout.cshtml */
+
+/* General body styling for dark theme (if not already set) */
+body {
+    background-color: #121212; /* Very dark grey */
+    color: #e0e0e0; /* Light grey text */
+    /* Add your preferred font-family */
+}
+
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Adjust as needed */
+    padding: 20px;
+}
+
+.auth-card {
+    background-color: #1e1e1e; /* Slightly lighter dark grey for the card */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 420px; /* Adjust card width */
+    border: 1px solid #333; /* Subtle border */
+}
+
+    .auth-card h1 {
+        color: #ffffff; /* White or very light title */
+    }
+
+/* Styling for form-floating inputs to fit dark theme */
+.form-floating > .form-control.auth-input {
+    background-color: #2a2a2a; /* Darker input background */
+    color: #e0e0e0; /* Light text in input */
+    border: 1px solid #444; /* Input border */
+}
+
+    .form-floating > .form-control.auth-input:focus {
+        background-color: #333333;
+        color: #ffffff;
+        border-color: #007bff; /* Or your primary accent color */
+        box-shadow: none; /* Remove default bootstrap focus glow if desired */
+    }
+
+.form-floating > label {
+    color: #aaa; /* Lighter label color for floating effect */
+}
+
+/* Ensure placeholder text is visible if not using floating labels */
+.form-control.auth-input::placeholder {
+    color: #777;
+    opacity: 1; /* Firefox */
+}
+
+.form-control.auth-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #777;
+}
+
+.form-control.auth-input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #777;
+}
+
+
+.auth-checkbox-area label {
+    color: #ccc;
+}
+
+.auth-checkbox-area .form-check-input {
+    background-color: #333;
+    border-color: #555;
+}
+
+    .auth-checkbox-area .form-check-input:checked {
+        background-color: #007bff; /* Or your primary accent color */
+        border-color: #007bff;
+    }
+
+
+.auth-button {
+    /* Use your primary button color from the design */
+    background-color: #007bff; /* Example: Bootstrap primary */
+    border-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+}
+
+    .auth-button:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.auth-links a {
+    color: #6cafff; /* Light blue for links, adjust to your accent */
+    text-decoration: none;
+}
+
+    .auth-links a:hover {
+        text-decoration: underline;
+    }
+
+.text-danger {
+    color: #ff5252 !important; /* More vibrant red for errors on dark theme */
+}

@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@* This partial will be injected by DI with IUserService if needed, but here we directly use User.Identity *@
+
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <ul class="navbar-nav-custom">
+        @* Use your custom nav class *@
+        <li class="nav-item-custom">
+            <span class="nav-link navcolor">Hello, @(User.FindFirstValue(ClaimTypes.Name) ?? User.Identity.Name)!</span>
+        </li>
+        <li class="nav-item-custom btn-container-custom">
+            @* Custom class for button container *@
+            <form class="form-inline" asp-area="" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post">
+                <button type="submit" class="btn btn-logout-custom">Logout</button> @* Custom class for logout button *@
+            </form>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="navbar-nav-custom btn-container-custom">
+        @* Use your custom nav class and button container *@
+        <li class="nav-item-custom">
+            <a class="btn btn-register-custom" asp-page="/Auth/Register">Register</a> @* Custom class for register button *@
+        </li>
+        <li class="nav-item-custom">
+            <a class="btn btn-signin-custom" asp-page="/Auth/Login">Sign In</a> @* Custom class for signin button *@
+        </li>
+    </ul>
+}

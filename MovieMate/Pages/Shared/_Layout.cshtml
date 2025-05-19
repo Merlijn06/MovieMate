@@ -1,45 +1,56 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /> <!-- Corrected charset -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MovieMate</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MovieMate.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MovieMate.WebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar-custom navbar-expand-sm">
-            <div class="navbar-custom">
+        <nav class="navbar-custom">
+            @* Removed navbar-expand-sm as your structure is custom *@
+            <div class="navbar-custom-container">
+                @* Added a container for better structure *@
                 <a asp-area="" asp-page="/Index"> <img class="navimage" src="~/images/MovieMateLogo.png" alt="MovieMateLogo" /> </a>
-                <div class="d-sm-inline-flex">
-                    <ul class="navbar-nav">
-                        <li class="watchlist-container">
-                            <img class="watchlist-icon" src="~/images/WatchlistIcon.png" alt="WatchlistIcon" />
-                            <a class="navcolor nav-link" style="padding-left: 1px; asp-area=" asp-page="/Index">Watchlist</a>
-                        </li>
-                        <li class="search-container">
-                            <input class="search-bar" type="text" placeholder="Search" />
-                            <button class="search-btn"><img class="search-img" src="~/images/SearchIcon.png" alt="SearchIcon" /></button>
-                        </li>
-                        <li class="btn-container">
-                            <button class="btn btn-light">Sign in</button>
-                        </li>
-                    </ul>
+
+                <ul class="navbar-nav-custom">
+                    @* Changed class for custom styling and structure *@
+                    <li class="watchlist-container nav-item-custom">
+                        @* Added nav-item-custom for consistency *@
+                        <img class="watchlist-icon" src="~/images/WatchlistIcon.png" alt="WatchlistIcon" />
+                        <a class="navcolor nav-link" asp-page="/Watchlist/Index">Watchlist</a> @* Corrected asp-page and removed inline style *@
+                    </li>
+                    <li class="search-container-wrapper nav-item-custom">
+                        @* Wrapper for search *@
+                        <div class="search-container">
+                            <input class="search-bar" type="text" placeholder="Search movies..." /> @* Changed placeholder *@
+                            <button class="search-btn" type="submit"><img class="search-img" src="~/images/SearchIcon.png" alt="SearchIcon" /></button>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="auth-actions-container">
+                    @* Container for auth actions *@
+                    <partial name="_LoginPartial" /> @* THIS IS THE KEY CHANGE *@
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container main-content-container">
+        @* Added class for potential specific styling *@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer-custom">
+        @* Changed class for custom styling *@
         <div class="container">
-            &copy; 2025 - MovieMate - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            © @DateTime.Now.Year - MovieMate - <a asp-area="" asp-page="/Privacy" class="footer-link">Privacy</a>
         </div>
     </footer>
 
