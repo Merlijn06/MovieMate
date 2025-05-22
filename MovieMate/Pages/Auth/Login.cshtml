@@ -2,11 +2,8 @@
 @model MovieMate.WebApp.Pages.Auth.LoginModel
 @{
     ViewData["Title"] = "Log In";
-    // You might want a specific layout for Auth pages if it differs significantly
-    // Layout = "_AuthLayout";
 }
 
-@* Apply a container class that centers content and fits the dark theme *@
 <div class="auth-container">
     <div class="auth-card">
         <div class="text-center mb-4">
@@ -41,11 +38,8 @@
 
             <div class="mt-4 text-center auth-links">
                 <p>
-                    Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register here</a>
+                    Don't have an account? <a asp-page="./Register">Register here</a>
                 </p>
-                @* <p>
-                    <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                </p> *@
             </div>
         </form>
     </div>
