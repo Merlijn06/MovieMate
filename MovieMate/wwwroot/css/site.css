@@ -207,3 +207,148 @@ html {
     position: relative;
     min-height: 100%;
 }
+
+.movies-section {
+    /* Stijl voor de hele sectie (Top Picks, Top on MovieMate) */
+}
+
+.section-title {
+    color: #f0f0f0; /* Lichte kleur voor titels */
+    font-weight: 600;
+    font-size: 1.8rem; /* Iets groter */
+}
+
+    .section-title .arrow {
+        color: #007bff; /* Of je accentkleur */
+        margin-left: 8px;
+    }
+
+/* Movie Card Styling (gebaseerd op je design) */
+.movie-card {
+    background-color: #1a1a1a; /* Donkere achtergrond voor de kaart */
+    border-radius: 8px;
+    overflow: hidden; /* Zorgt dat afbeeldingen netjes binnen de kaart blijven */
+    margin-bottom: 20px; /* Ruimte onder de kaart als ze onder elkaar komen */
+    color: #ccc; /* Lichte tekstkleur voor info */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Zorgt dat kaarten in een grid rij dezelfde hoogte proberen te krijgen */
+    border: 1px solid #2a2a2a; /* Subtiele rand */
+}
+
+.movie-poster-link {
+    display: block; /* Maakt de anker tag een block zodat de afbeelding de ruimte vult */
+}
+
+.movie-poster {
+    width: 100%;
+    height: auto; /* Behoud aspect ratio */
+    max-height: 400px; /* Of een andere vaste hoogte, pas op voor aspect ratio's */
+    object-fit: cover; /* Zorgt dat de afbeelding de ruimte vult en bijsnijdt indien nodig */
+    display: block;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.movie-info {
+    padding: 15px;
+    flex-grow: 1; /* Zorgt dat info deel uitrekt als kaart hoger is */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ruimte tussen titel en meta */
+}
+
+.movie-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #e0e0e0; /* Lichte titelkleur */
+    /* Voor als de titel te lang is: */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-title-link { /* Voor de anker tag om de titel */
+    color: inherit; /* Erft kleur van .movie-title */
+}
+
+    .movie-title-link:hover {
+        color: #007bff; /* Accentkleur bij hover */
+    }
+
+
+.movie-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #aaa; /* Iets donkerder meta tekst */
+}
+
+.movie-rating {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #ffc107; /* Geel voor rating */
+}
+
+.rating-star-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: middle; /* Zorgt voor betere uitlijning met tekst */
+}
+
+.btn-rate, .info-icon-link {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.rate-icon, .info-icon {
+    width: 18px; /* Grootte van de iconen */
+    height: 18px;
+    margin-right: 4px; /* Ruimte als er tekst naast komt */
+}
+
+.btn-rate .rate-icon {
+    filter: invert(70%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(90%);
+}
+/* Grijsachtig */
+.info-icon-link .info-icon {
+    filter: invert(70%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(90%);
+}
+/* Grijsachtig */
+
+
+.btn-rate {
+    color: #aaa; /* Tekstkleur voor "Rate" knop */
+}
+
+    .btn-rate:hover, .btn-rate:hover .rate-icon,
+    .info-icon-link:hover .info-icon {
+        color: #fff; /* Wit bij hover */
+        filter: none; /* Verwijder filter om de originele kleur van het icoon te tonen, of zet een andere filter */
+    }
+
+
+/* Placeholder voor als er geen films zijn */
+.lead {
+    color: #ccc;
+}
+
+
+/* Carousel styling (voor later, als je de Top Picks sectie activeert) */
+.carousel-item .movie-card {
+    margin: 0 auto; /* Centreer de kaart in een carousel item als er maar 1 is */
+    /* Als je meerdere kaarten per carousel slide wilt, wordt dit complexer */
+}
+
+.btn-carousel-nav {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+}

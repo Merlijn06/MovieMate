@@ -1,11 +1,99 @@
 ﻿@page
-@model IndexModel
+@model MovieMate.WebApp.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
-    <link rel="stylesheet" href="MovieMate/Pages/Index.cshtml.css" asp-append-version="true" />
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+
+    @* --- SECTIE VOOR AANBEVOLEN FILMS (voor later) ---
+    @if (Model.RecommendedMovies.Any())
+    {
+        <div class="movies-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="section-title">Top Picks For You <span class="arrow">→</span></h2>
+                <div>
+                    <button class="btn btn-sm btn-carousel-nav" type="button" data-bs-target="#recommendedCarousel" data-bs-slide="prev"><</button>
+                    <button class="btn btn-sm btn-carousel-nav" type="button" data-bs-target="#recommendedCarousel" data-bs-slide="next">></button>
+                </div>
+            </div>
+            <div id="recommendedCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @{ var firstRecommended = true; }
+                    @foreach (var movie in Model.RecommendedMovies)
+                    {
+                        <div class="carousel-item @(firstRecommended ? "active" : "")">
+                            <div class="movie-card">
+                                <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId">
+                                    <img src="@(string.IsNullOrEmpty(movie.PosterURL) ? "/images/placeholder-poster.png" : movie.PosterURL)"
+                                         alt="@movie.Title poster" class="movie-poster">
+                                </a>
+                                <div class="movie-info">
+                                    <h5 class="movie-title">@movie.Title</h5>
+                                    <div class="movie-meta">
+                                        <span class="movie-rating"><img src="~/images/StarIcon.png" alt="Rating star" class="rating-star-icon" /> @movie.AverageRating.ToString("0.0")</span>
+                                        <button class="btn btn-sm btn-rate"><img src="~/images/RateIcon.png" alt="Rate" class="rate-icon" /> Rate</button>
+                                        <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="info-icon-link">
+                                            <img src="~/images/InfoIcon.png" alt="More info" class="info-icon" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        firstRecommended = false;
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    *@
+
+    @if (Model.AllMovies.Any())
+    {
+        <div class="movies-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="section-title">Top on MovieMate <span class="arrow">→</span></h2>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
+                @foreach (var movie in Model.AllMovies.OrderByDescending(m => m.AverageRating).ThenByDescending(m => m.TotalRatings).Take(12))
+                {
+                    <div class="col">
+                        <div class="movie-card">
+                            <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="movie-poster-link">
+                                <img src="@(string.IsNullOrEmpty(movie.PosterURL) ? "/images/placeholder-poster.png" : movie.PosterURL)"
+                                     alt="@movie.Title poster" class="movie-poster">
+                            </a>
+                            <div class="movie-info">
+                                <h5 class="movie-title">
+                                    <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="text-decoration-none movie-title-link">
+                                        @movie.Title
+                                    </a>
+                                </h5>
+                                <div class="movie-meta">
+                                    <span class="movie-rating">
+                                        <img src="~/images/StarIcon.png" alt="Rating star" class="rating-star-icon" /> @movie.AverageRating.ToString("0.0")
+                                    </span>
+                                    @* Later: Mogelijkheid om direct te raten of aan watchlist toe te voegen *@
+                                    @* <button class="btn btn-sm btn-rate"><img src="~/images/RateIcon.png" alt="Rate" class="rate-icon" /> Rate</button> *@
+                                    <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="info-icon-link">
+                                        <img src="~/images/InfoIcon.png" alt="More info" class="info-icon" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center mt-5">
+            <p class="lead">No movies found at the moment. Please check back later!</p>
+            @if (User.IsInRole("Admin")) 
+            {
+                <p><a asp-page="/Admin/Movies/Create" class="btn btn-primary">Add New Movie</a></p>
+            }
+        </div>
+    }
 </div>

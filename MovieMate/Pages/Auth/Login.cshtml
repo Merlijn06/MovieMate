@@ -4,6 +4,16 @@
     ViewData["Title"] = "Log In";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
 <div class="auth-container">
     <div class="auth-card">
         <div class="text-center mb-4">

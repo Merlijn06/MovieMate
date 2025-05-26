@@ -17,8 +17,8 @@ namespace MovieMate.BLL.Services
 
         public UserService(IUserRepository userRepository, IAuditLogService auditLogService)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-            _auditLogService = auditLogService ?? throw new ArgumentNullException(nameof(auditLogService));
+            _userRepository = userRepository;
+            _auditLogService = auditLogService;
         }
 
         public async Task<ServiceResult<User>> RegisterUserAsync(string username, string email, string password)

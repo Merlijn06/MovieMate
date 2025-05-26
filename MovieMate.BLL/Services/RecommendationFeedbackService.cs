@@ -21,9 +21,9 @@ namespace MovieMate.BLL.Services
             IMovieRepository movieRepository,
             IAuditLogService auditLogService)
         {
-            _feedbackRepository = feedbackRepository ?? throw new ArgumentNullException(nameof(feedbackRepository));
-            _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
-            _auditLogService = auditLogService ?? throw new ArgumentNullException(nameof(auditLogService));
+            _feedbackRepository = feedbackRepository;
+            _movieRepository = movieRepository;
+            _auditLogService = auditLogService;
         }
 
         public async Task<ServiceResult> RecordFeedbackAsync(int userId, int movieId, bool liked)

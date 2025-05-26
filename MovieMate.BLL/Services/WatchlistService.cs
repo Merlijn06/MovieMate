@@ -18,9 +18,9 @@ namespace MovieMate.BLL.Services
 
         public WatchlistService(IWatchlistRepository watchlistRepository, IMovieRepository movieRepository, IAuditLogService auditLogService)
         {
-            _watchlistRepository = watchlistRepository ?? throw new ArgumentNullException(nameof(watchlistRepository));
-            _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
-            _auditLogService = auditLogService ?? throw new ArgumentNullException(nameof(auditLogService));
+            _watchlistRepository = watchlistRepository;
+            _movieRepository = movieRepository;
+            _auditLogService = auditLogService;
         }
 
         public async Task<IEnumerable<WatchlistItem>> GetUserWatchlistAsync(int userId)

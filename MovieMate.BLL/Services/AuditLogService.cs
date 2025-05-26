@@ -16,7 +16,7 @@ namespace MovieMate.BLL.Services
 
         public AuditLogService(IAuditLogRepository auditLogRepository)
         {
-            _auditLogRepository = auditLogRepository ?? throw new ArgumentNullException(nameof(auditLogRepository));
+            _auditLogRepository = auditLogRepository;
         }
 
         public async Task LogActionAsync(int? userId, string action, string? details = null)

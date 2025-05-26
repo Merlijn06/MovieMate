@@ -1,0 +1,21 @@
+﻿@page
+@model MovieMate.WebApp.Pages.Auth.AccessDeniedModel
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="auth-container">
+    <div class="auth-card text-center">
+        <header>
+            <h1 class="h3 mb-3 fw-normal text-danger">@ViewData["Title"]</h1>
+            <p class="lead">You do not have permission to view this page or perform this action.</p>
+        </header>
+        <hr />
+        <p>
+            If you believe you should have access, please contact the site administrator.
+        </p>
+        <p>
+            <a asp-page="/Index" class="btn btn-secondary auth-button mt-3">Go to Homepage</a>
+        </p>
+    </div>
+</div>

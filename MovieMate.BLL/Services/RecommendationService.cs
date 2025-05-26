@@ -22,10 +22,10 @@ namespace MovieMate.BLL.Services
             IWatchlistRepository watchlistRepository,
             IRecommendationFeedbackRepository feedbackRepository)
         {
-            _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
-            _reviewRepository = reviewRepository ?? throw new ArgumentNullException(nameof(reviewRepository));
-            _watchlistRepository = watchlistRepository ?? throw new ArgumentNullException(nameof(watchlistRepository));
-            _feedbackRepository = feedbackRepository ?? throw new ArgumentNullException(nameof(feedbackRepository));
+            _movieRepository = movieRepository;
+            _reviewRepository = reviewRepository;
+            _watchlistRepository = watchlistRepository;
+            _feedbackRepository = feedbackRepository;
         }
 
         public async Task<IEnumerable<Movie>> GetRecommendationsForUserAsync(int userId, int count = 10)

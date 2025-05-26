@@ -1,20 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MovieMate.BLL.Interfaces.MovieMate.BLL.Interfaces;
+using MovieMate.Models;
 
-namespace MovieMate.Pages
+namespace MovieMate.WebApp.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IMovieService _movieService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IEnumerable<Movie> AllMovies { get; private set; } = Enumerable.Empty<Movie>();
+
+        public IndexModel(IMovieService movieService)
         {
-            _logger = logger;
+            _movieService = movieService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-
+            AllMovies = await _movieService.GetAllMoviesAsync();
         }
     }
 }

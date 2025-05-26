@@ -17,8 +17,8 @@ namespace MovieMate.BLL.Services
 
         public MovieService(IMovieRepository movieRepository, IAuditLogService auditLogService)
         {
-            _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
-            _auditLogService = auditLogService ?? throw new ArgumentNullException(nameof(auditLogService));
+            _movieRepository = movieRepository;
+            _auditLogService = auditLogService;
         }
 
         public async Task<Movie?> GetMovieByIdAsync(int id)

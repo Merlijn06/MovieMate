@@ -1,0 +1,83 @@
+﻿/* In site.css of movies.css */
+.movie-details-poster {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #333;
+}
+
+.movie-info-panel {
+    color: #e0e0e0;
+}
+
+.movie-title-detail {
+    color: #fff;
+    font-weight: 300; /* Lichtere font voor display titels */
+}
+
+.genre-list {
+    font-style: italic;
+    color: #aaa;
+}
+
+.movie-rating-detail {
+    font-size: 1.5rem;
+    color: #ffc107; /* Geel voor rating */
+    display: flex;
+    align-items: center;
+}
+
+.rating-star-icon-large {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.rating-star-icon-small {
+    width: 14px;
+    height: 14px;
+    margin-right: 3px;
+    vertical-align: text-bottom;
+}
+
+
+.movie-description {
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.action-buttons .btn {
+    /* Je button styling van eerder, misschien iets aangepast */
+    margin-bottom: 5px; /* Ruimte als ze onder elkaar wrappen */
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%); /* Maakt iconen wit voor donkere knoppen */
+}
+
+.btn-outline-light .btn-icon { /* Voor lichte outline knoppen, misschien een ander filter */
+    filter: invert(70%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(90%);
+}
+
+
+.reviews-section h3 {
+    color: #e0e0e0;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.review-form-card, .review-card {
+    background-color: #1e1e1e; /* Iets lichtere kaart achtergrond */
+    border: 1px solid #2f2f2f;
+    color: #ccc;
+}
+
+    .review-form-card .card-title, .review-card .card-title {
+        color: #e0e0e0;
+    }
+
+.review-comment {
+    white-space: pre-wrap; /* Behoudt witruimte en newlines in commentaar */
+}
