@@ -26,10 +26,6 @@ namespace MovieMate.BLL.Services
         public async Task<IEnumerable<WatchlistItem>> GetUserWatchlistAsync(int userId)
         {
             if (userId <= 0) return Enumerable.Empty<WatchlistItem>();
-            // The DAL method GetWatchlistByUserIdAsync now returns WatchlistItems with Movie object populated if you used Dapper multi-mapping
-            // If not, then this method returns basic WatchlistItems, and UI/PageModel needs to fetch Movie details.
-            // Let's assume DAL provides items with MovieId, and if we need full movie details for display,
-            // we might have a different method or ViewModel. For now, this returns what the DAL gives.
             return await _watchlistRepository.GetWatchlistByUserIdAsync(userId);
         }
 

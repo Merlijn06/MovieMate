@@ -1,0 +1,75 @@
+﻿@page
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+@model MovieMate.WebApp.Pages.Watchlist.IndexModel
+@{
+    ViewData["Title"] = "My Watchlist";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/movies.css" />
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model.DisplayableWatchlistItems.Any())
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+            @foreach (var item in Model.DisplayableWatchlistItems)
+            {
+                <div class="col">
+                    <div class="movie-card h-100">
+                        <a asp-page="/Movies/Details" asp-route-id="@item.MovieDetails.MovieId" class="movie-poster-link">
+                            <img src="@(string.IsNullOrEmpty(item.MovieDetails.PosterURL) ? "/images/placeholder-poster.png" : item.MovieDetails.PosterURL)"
+                                 alt="@item.MovieDetails.Title poster" class="movie-poster">
+                        </a>
+                        <div class="movie-info">
+                            <h5 class="movie-title">
+                                <a asp-page="/Movies/Details" asp-route-id="@item.MovieDetails.MovieId" class="text-decoration-none movie-title-link">
+                                    @item.MovieDetails.Title
+                                </a>
+                            </h5>
+                            <div class="movie-meta mb-2">
+                                <span class="movie-rating">
+                                    <img src="~/images/StarIcon.png" alt="Rating star" class="rating-star-icon-small" />
+                                    @item.MovieDetails.AverageRating.ToString("0.0")
+                                </span>
+                                <small class="text-muted">Added: @item.AddedAt.ToString("d MMM yyyy")</small>
+                            </div>
+                            <div>
+                                <form method="post" asp-page-handler="RemoveFromWatchlistOnPage" class="d-inline">
+                                    <input type="hidden" name="movieIdToRemove" value="@item.MovieDetails.MovieId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                                        Remove
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center mt-5">
+            <p class="lead">Your watchlist is empty.</p>
+            <p><a asp-page="/Index" class="btn btn-primary">Find movies to add!</a></p>
+        </div>
+    }
+</div>

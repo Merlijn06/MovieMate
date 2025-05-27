@@ -27,13 +27,11 @@
 {
     <div class="container movie-details-container mt-4">
         <div class="row">
-            @* Poster Kolom *@
             <div class="col-md-4 text-center text-md-start">
                 <img src="@(string.IsNullOrEmpty(Model.Movie.PosterURL) ? "/images/placeholder-poster.png" : Model.Movie.PosterURL)"
                      alt="@Model.Movie.Title poster" class="img-fluid movie-details-poster rounded shadow">
             </div>
 
-            @* Info Kolom *@
             <div class="col-md-8 movie-info-panel">
                 <h1 class="movie-title-detail display-5">@Model.Movie.Title</h1>
                 <p class="text-muted genre-list">@Model.Movie.Genre</p>
@@ -52,11 +50,9 @@
 
                 <p><strong>Release Date:</strong> @Model.Movie.ReleaseDate.ToString("MMMM d, yyyy")</p>
 
-                @* --- ACTIE KNOPPEN (alleen voor ingelogde gebruikers) --- *@
                 @if (User.Identity != null && User.Identity.IsAuthenticated)
                 {
                     <div class="action-buttons mt-4 mb-3">
-                        @* Watchlist Knop - Logica komt later in OnPost handler *@
                         <form method="post">
                             @if (Model.IsInWatchlist)
                             {
@@ -78,11 +74,9 @@
 
         <hr class="my-4" />
 
-        @* --- SECTIE VOOR RECENSIES --- *@
         <div class="reviews-section mt-4">
             <h3 class="mb-3">Reviews (@Model.Reviews.Count())</h3>
 
-            @* Formulier om nieuwe recensie te plaatsen (alleen voor ingelogde gebruikers die nog niet gereviewed hebben) *@
             @if (User.Identity != null && User.Identity.IsAuthenticated && Model.CanUserReview)
             {
                 <div class="card review-form-card mb-4 shadow-sm">
