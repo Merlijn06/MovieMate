@@ -352,3 +352,9 @@ html {
     color: white;
     border: none;
 }
+
+.search-form-custom {
+    display: flex; /* Zorgt dat het formulier de breedte van de content neemt */
+    flex-grow: 1; /* Als het in een flex container zit die ruimte moet vullen */
+    /* Eventueel andere styling */
+}

@@ -9,7 +9,10 @@ namespace MovieMate.WebApp.Pages
     {
         private readonly IMovieService _movieService;
 
-        public IEnumerable<Movie> AllMovies { get; private set; } = Enumerable.Empty<Movie>();
+        public IEnumerable<Movie> DisplayMovies { get; private set; } = Enumerable.Empty<Movie>();
+
+        [BindProperty(SupportsGet = true)]
+        public string? SearchTerm { get; set; }
 
         public IndexModel(IMovieService movieService)
         {
@@ -18,7 +21,19 @@ namespace MovieMate.WebApp.Pages
 
         public async Task OnGetAsync()
         {
-            AllMovies = await _movieService.GetAllMoviesAsync();
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                DisplayMovies = await _movieService.SearchMoviesAsync(SearchTerm);
+            }
+            else
+            {
+                var allMovies = await _movieService.GetAllMoviesAsync();
+
+                DisplayMovies = allMovies
+                                 .OrderByDescending(m => m.AverageRating)
+                                 .ThenByDescending(m => m.TotalRatings)
+                                 .Take(12);
+            }
         }
     }
 }
