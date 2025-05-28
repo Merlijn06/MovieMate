@@ -15,6 +15,5 @@ namespace MovieMate.DAL.Interfaces
         Task<int> AddAsync(Movie movie);
         Task<bool> UpdateAsync(Movie movie);
         Task<bool> DeleteAsync(int movieId);
-        // Task<void> UpdateAverageRatingAsync(int movieId, decimal averageRating, int totalRatings); // Movie model will hold this, calculation in BLL/DAL
     }
 }

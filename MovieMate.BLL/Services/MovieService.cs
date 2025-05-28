@@ -13,7 +13,7 @@ namespace MovieMate.BLL.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly IAuditLogService _auditLogService; // Inject audit service
+        private readonly IAuditLogService _auditLogService;
 
         public MovieService(IMovieRepository movieRepository, IAuditLogService auditLogService)
         {

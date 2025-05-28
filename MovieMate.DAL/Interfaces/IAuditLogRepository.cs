@@ -12,7 +12,7 @@ namespace MovieMate.DAL.Interfaces
         Task AddLogAsync(AuditLog log);
         Task<IEnumerable<AuditLog>> GetLogsAsync(int pageNumber, int pageSize);
         Task<IEnumerable<AuditLog>> GetLogsByUserIdAsync(int userId, int pageNumber, int pageSize);
-        Task<int> GetTotalLogCountAsync(); // For pagination
-        Task<int> GetTotalLogCountByUserIdAsync(int userId); // For pagination
+        Task<int> GetTotalLogCountAsync();
+        Task<int> GetTotalLogCountByUserIdAsync(int userId);
     }
 }

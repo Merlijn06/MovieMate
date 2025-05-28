@@ -30,20 +30,11 @@ namespace MovieMate.DAL.Repositories
         public async Task<bool> AddToWatchlistAsync(int userId, int movieId)
         {
             using var connection = CreateConnection();
-
             var sqlInsert = @"
                 INSERT INTO Watchlist (UserID, MovieID, AddedAt)
                 VALUES (@UserId, @MovieId, NOW());";
-
-            try
-            {
-                int rowsAffected = await connection.ExecuteAsync(sqlInsert, new { UserId = userId, MovieId = movieId });
-                return rowsAffected > 0;
-            }
-            catch (MySql.Data.MySqlClient.MySqlException ex) when (ex.Number == 1062)
-            {
-                return true; // Als de film al in de watchlist staat returnt die nu True omdat de film succesvol in de watchlist staat (ook al stond de film er al)
-            }
+            int rowsAffected = await connection.ExecuteAsync(sqlInsert, new { UserId = userId, MovieId = movieId });
+            return rowsAffected > 0;
         }
 
         public async Task<bool> RemoveFromWatchlistAsync(int userId, int movieId)

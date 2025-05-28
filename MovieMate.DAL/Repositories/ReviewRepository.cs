@@ -71,7 +71,6 @@ namespace MovieMate.DAL.Repositories
         public async Task<int> AddAsync(Review review)
         {
             using var connection = CreateConnection();
-            // Reviews table has a UNIQUE constraint on (UserID, MovieID)
             var sql = @"
                 INSERT INTO Reviews (UserID, MovieID, RatingValue, Comment, CreatedAt, UpdatedAt)
                 VALUES (@UserId, @MovieId, @RatingValue, @Comment, NOW(), NOW());
@@ -97,6 +96,5 @@ namespace MovieMate.DAL.Repositories
             var sql = "DELETE FROM Reviews WHERE ReviewID = @ReviewId;";
             return await connection.ExecuteAsync(sql, new { ReviewId = reviewId }) > 0;
         }
-
     }
 }

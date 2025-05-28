@@ -11,7 +11,7 @@ namespace MovieMate.DAL.Interfaces
     {
         Task<RecommendationFeedback?> GetFeedbackAsync(int userId, int movieId);
         Task AddOrUpdateFeedbackAsync(int userId, int movieId, bool liked);
-        Task<bool> RemoveFeedbackAsync(int userId, int movieId); // If you want to allow "clearing" feedback
+        Task<bool> RemoveFeedbackAsync(int userId, int movieId);
         Task<IEnumerable<RecommendationFeedback>> GetFeedbacksByUserAsync(int userId);
     }
 }

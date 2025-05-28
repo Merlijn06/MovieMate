@@ -43,24 +43,23 @@ namespace MovieMate.BLL.Services
                 return new ServiceResult { Success = false, ErrorMessage = "Movie not found." };
             }
 
-            bool alreadyInWatchlist = await _watchlistRepository.IsMovieInWatchlistAsync(userId, movieId);
-            if (alreadyInWatchlist)
-            {
-                return new ServiceResult { Success = true, ErrorMessage = "Movie is already in your watchlist." }; // Still success
-            }
-
             try
             {
-                bool success = await _watchlistRepository.AddToWatchlistAsync(userId, movieId);
-                if (success)
+                bool alreadyInWatchlist = await _watchlistRepository.IsMovieInWatchlistAsync(userId, movieId);
+                if (alreadyInWatchlist)
+                {
+                    await _auditLogService.LogActionAsync(userId, "Attempted to Add Existing Movie to Watchlist", $"MovieID: {movieId}");
+                    return new ServiceResult { Success = true, ErrorMessage = "Movie is already in your watchlist." };
+                }
+                bool addedSuccessfully = await _watchlistRepository.AddToWatchlistAsync(userId, movieId);
+                if (addedSuccessfully)
                 {
                     await _auditLogService.LogActionAsync(userId, "Added Movie to Watchlist", $"MovieID: {movieId}");
                     return new ServiceResult { Success = true };
                 }
                 else
                 {
-                    // This branch might be hit if AddToWatchlistAsync's try-catch for duplicate returns false
-                    return new ServiceResult { Success = false, ErrorMessage = "Failed to add movie to watchlist. It might already be there." };
+                    return new ServiceResult { Success = false, ErrorMessage = "Failed to add movie to watchlist for an unexpected reason." };
                 }
             }
             catch (Exception ex)
