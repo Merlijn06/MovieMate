@@ -358,3 +358,27 @@ html {
     flex-grow: 1; /* Als het in een flex container zit die ruimte moet vullen */
     /* Eventueel andere styling */
 }
+
+.btn-admin-custom {
+    background-color: #6f42c1; /* Voorbeeld: een paarse kleur voor admin */
+    border-color: #6f42c1;
+    color: #fff;
+    /* Gebruik dezelfde padding, font-size, border-radius etc. als je andere knoppen 
+       voor consistentie, of maak het juist iets afwijkend. */
+    padding: 6px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+    .btn-admin-custom:hover {
+        background-color: #5a32a3;
+        border-color: #5a32a3;
+        color: #fff;
+    }

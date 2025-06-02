@@ -1,0 +1,112 @@
+﻿.admin-table {
+    background-color: #2a2a2a; /* Iets lichtere achtergrond dan body voor contrast */
+    color: #e0e0e0; /* Lichte tekstkleur */
+    border: 1px solid #444; /* Rand rond de tabel */
+    margin-top: 20px; /* Ruimte boven de tabel */
+}
+
+    /* Tabel Header (thead) */
+    .admin-table thead.table-dark { /* We gebruiken Bootstrap's table-dark voor de header */
+        background-color: #1a1a1a; /* Nog donkerder voor header */
+        color: #ffffff; /* Witte tekst voor header cellen */
+        border-bottom: 2px solid #555; /* Duidelijkere scheidingslijn */
+    }
+
+        .admin-table thead.table-dark th {
+            color: #ffffff; /* Extra specificiteit als de standaard niet pakt */
+            font-weight: 500; /* Medium gewicht voor header tekst */
+        }
+
+    /* Tabel Rijen (tbody tr) */
+    .admin-table tbody tr {
+        border-bottom: 1px solid #383838; /* Lijn tussen rijen */
+    }
+
+        .admin-table tbody tr:nth-of-type(odd) { /* Strepen voor betere leesbaarheid */
+            background-color: #252525; /* Iets andere tint voor oneven rijen */
+        }
+
+        .admin-table tbody tr:hover {
+            background-color: #333333; /* Hover effect op rijen */
+            color: #ffffff;
+        }
+
+    /* Tabel Cellen (td, th) */
+    .admin-table td,
+    .admin-table th {
+        vertical-align: middle; /* Centreert content verticaal in cellen */
+        padding: 0.75rem; /* Standaard padding */
+    }
+
+        /* Specifiek voor poster kolom om afbeeldingen netjes te houden */
+        .admin-table td img {
+            max-width: 60px; /* Maximale breedte voor de poster thumbnail */
+            max-height: 90px; /* Maximale hoogte */
+            height: auto; /* Behoud aspect ratio */
+            border-radius: 3px; /* Lichte afronding */
+            display: block; /* Voorkomt extra ruimte onder afbeelding */
+            margin: 0 auto; /* Centreert als de cel breder is */
+        }
+
+    /* Actieknoppen in de tabel */
+    .admin-table .btn-sm { /* Styling voor de kleine actieknoppen */
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem; /* Kleinere font size */
+        margin-right: 5px; /* Ruimte tussen knoppen */
+    }
+
+        .admin-table .btn-sm:last-child {
+            margin-right: 0; /* Geen marge voor de laatste knop */
+        }
+
+/* Iconen in knoppen (algemeen) */
+.btn-icon-sm {
+    width: 14px; /* Iets kleiner voor .btn-sm */
+    height: 14px;
+    vertical-align: middle; /* Betere uitlijning met tekst */
+    margin-right: 3px; /* Ruimte tussen icoon en tekst (als er tekst is) */
+    /* Filter voor witte iconen op gekleurde/donkere knoppen */
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%);
+}
+
+/* Specifieke filters voor outline knoppen als de iconen zwart zijn */
+.btn-outline-primary .btn-icon-sm,
+.btn-outline-info .btn-icon-sm,
+.btn-outline-danger .btn-icon-sm,
+.btn-outline-secondary .btn-icon-sm {
+    filter: none; /* Geen filter, gebruik originele icoonkleur (zwart/donker) */
+}
+/* Als je witte iconen hebt en ze op een lichte outline knop wilt tonen: */
+/* .btn-outline-light .btn-icon-sm { filter: invert(0%); } */
+
+
+/* Knop voor "Create New Movie" bovenaan */
+.btn-primary { /* Zorg dat je primaire knop er goed uitziet */
+    /* Gebruik je bestaande .auth-button styling of definieer hier */
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-primary .btn-icon-sm { /* Witte iconen op primaire knop */
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%);
+    }
+
+
+/* Styling voor de "Create New Movie" knop container bovenaan */
+/* De d-flex in de HTML zorgt al voor positionering, dit is voor de knop zelf */
+.admin-table-actions-header a.btn { /* Als je een specifieke container hebt */
+    /* ... */
+}
+
+/* Algemene pagina titel styling (als je die op meerdere admin pagina's wilt) */
+.admin-page-title {
+    color: #e8eaed;
+    margin-bottom: 20px;
+    font-weight: 300;
+}

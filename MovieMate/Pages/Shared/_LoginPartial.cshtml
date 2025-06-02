@@ -6,7 +6,13 @@
 @if (User.Identity != null && User.Identity.IsAuthenticated)
 {
     <ul class="navbar-nav-custom">
-        @* Use your custom nav class *@
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item-custom btn-container-custom me-2">
+                <a class="btn btn-admin-custom" asp-page="/Admin/Movies/Index">Admin Panel</a>
+            </li>
+        }
+
         <li class="nav-item-custom">
             <span class="nav-link navcolor">Hello, @(User.FindFirstValue(ClaimTypes.Name) ?? User.Identity.Name)!</span>
         </li>

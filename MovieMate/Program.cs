@@ -7,12 +7,9 @@ using MovieMate.BLL.Interfaces.MovieMate.BLL.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages(options =>
 {
-    // Example: Configure authorization for specific folders
-    options.Conventions.AuthorizeFolder("/Admin", "AdminOnly"); // All pages in /Admin folder require "AdminOnly" policy
-    // options.Conventions.AuthorizePage("/Movies/CreateReview", "AuthenticatedUser"); // Example for specific page
+    options.Conventions.AuthorizeFolder("/Admin", "AdminOnly");
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -28,7 +25,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IWatchlistService, WatchlistService>();
 builder.Services.AddScoped<IRecommendationFeedbackService, RecommendationFeedbackService>();
-builder.Services.AddScoped<IRecommendationService, RecommendationService>();
+//builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IAuditLogService, AuditLogService>();
 
 // --- Authentication and Authorization Setup ---
@@ -58,7 +55,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
