@@ -1,0 +1,63 @@
+﻿@page
+@model MovieMate.WebApp.Pages.Admin.Movies.CreateModel
+@{
+    ViewData["Title"] = "Create New Movie";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
+
+<div class="container mt-4 admin-form-container">
+    <h1 class="admin-page-title">@ViewData["Title"]</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="MovieInput.Title" class="form-label"></label>
+                    <input asp-for="MovieInput.Title" class="form-control auth-input" />
+                    <span asp-validation-for="MovieInput.Title" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MovieInput.Genre" class="form-label"></label>
+                    <input asp-for="MovieInput.Genre" class="form-control auth-input" />
+                    <span asp-validation-for="MovieInput.Genre" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MovieInput.Description" class="form-label"></label>
+                    <textarea asp-for="MovieInput.Description" class="form-control auth-input" rows="5"></textarea>
+                    <span asp-validation-for="MovieInput.Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MovieInput.ReleaseDate" class="form-label"></label>
+                    <input asp-for="MovieInput.ReleaseDate" type="date" class="form-control auth-input" />
+                    <span asp-validation-for="MovieInput.ReleaseDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MovieInput.PosterURL" class="form-label"></label>
+                    <input asp-for="MovieInput.PosterURL" type="url" class="form-control auth-input" />
+                    <span asp-validation-for="MovieInput.PosterURL" class="text-danger"></span>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary auth-button me-2">Create Movie</button>
+                    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

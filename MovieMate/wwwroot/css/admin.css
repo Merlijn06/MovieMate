@@ -110,3 +110,44 @@
     margin-bottom: 20px;
     font-weight: 300;
 }
+
+.admin-form-container {
+    background-color: #1e1e1e; /* Iets lichtere achtergrond dan body */
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    margin-bottom: 30px;
+}
+
+    .admin-form-container .form-label {
+        color: #ccc; /* Lichte labels */
+        margin-bottom: .3rem;
+    }
+
+    /* Je .auth-input stijl kan hier ook werken, of maak een .admin-input */
+    .admin-form-container .form-control { /* Overerft van .auth-input als je die class gebruikt */
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+        border: 1px solid #444;
+    }
+
+        .admin-form-container .form-control:focus {
+            background-color: #333333;
+            color: #ffffff;
+            border-color: #007bff; /* Of je primaire accentkleur */
+            box-shadow: none;
+        }
+
+    .admin-form-container .btn-primary {
+        /* Je bestaande .auth-button of .btn-primary styling */
+    }
+
+    .admin-form-container .btn-secondary {
+        background-color: #4F4F4F;
+        border-color: #4F4F4F;
+        color: #e0e0e0;
+    }
+
+        .admin-form-container .btn-secondary:hover {
+            background-color: #3d3d3d;
+        }
