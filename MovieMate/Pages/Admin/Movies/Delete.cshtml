@@ -1,0 +1,59 @@
+﻿@page "{id:int}"
+@model MovieMate.WebApp.Pages.Admin.Movies.DeleteModel
+@{
+    ViewData["Title"] = "Confirm Delete Movie";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
+
+<div class="container mt-4 admin-form-container">
+    <h1 class="admin-page-title text-danger">@ViewData["Title"]</h1>
+
+    @if (Model.MovieToDelete != null)
+    {
+        <h3 class="text-warning">Are you sure you want to delete the movie: "@Model.MovieToDelete.Title"?</h3>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                @if (!string.IsNullOrEmpty(Model.MovieToDelete.PosterURL))
+                {
+                    <img src="@Model.MovieToDelete.PosterURL" alt="Poster for @Model.MovieToDelete.Title" class="img-fluid rounded shadow mb-3" />
+                }
+                else
+                {
+                    <img src="~/images/placeholder-poster.png" alt="No poster available" class="img-fluid rounded shadow mb-3" />
+                }
+            </div>
+            <div class="col-md-9">
+                <dl class="row">
+                    <dt class="col-sm-3">Movie ID:</dt>
+                    <dd class="col-sm-9">@Model.MovieToDelete.MovieId</dd>
+
+                    <dt class="col-sm-3">Title:</dt>
+                    <dd class="col-sm-9">@Model.MovieToDelete.Title</dd>
+
+                    <dt class="col-sm-3">Genre:</dt>
+                    <dd class="col-sm-9">@Model.MovieToDelete.Genre</dd>
+
+                    <dt class="col-sm-3">Release Date:</dt>
+                    <dd class="col-sm-9">@Model.MovieToDelete.ReleaseDate.ToString("yyyy-MM-dd")</dd>
+
+                    <dt class="col-sm-3">Description:</dt>
+                    <dd class="col-sm-9" style="white-space: pre-wrap;">@Model.MovieToDelete.Description</dd>
+                </dl>
+            </div>
+        </div>
+        <hr />
+        <form method="post">
+            <button type="submit" class="btn btn-danger auth-button me-2">Yes, Delete Movie</button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel & Back to List</a>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-warning">Movie details could not be loaded for deletion.</div>
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    }
+</div>
