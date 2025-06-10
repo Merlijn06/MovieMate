@@ -382,3 +382,38 @@ html {
         border-color: #5a32a3;
         color: #fff;
     }
+
+.feedback-buttons {
+    display: flex;
+    justify-content: flex-end; /* Knoppen aan de rechterkant */
+    gap: 8px; /* Ruimte tussen de knoppen */
+}
+
+.btn-feedback {
+    background-color: #333;
+    border: 1px solid #555;
+    color: #ccc;
+    border-radius: 50%; /* Maakt de knoppen rond */
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1; /* Zorgt dat emoji/icoon goed in het midden staat */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+    .btn-feedback:hover {
+        background-color: #444;
+        transform: scale(1.1); /* Lichte zoom bij hover */
+    }
+
+.btn-like:hover {
+    color: #28a745; /* Groen bij hover op like */
+}
+
+.btn-dislike:hover {
+    color: #dc3545; /* Rood bij hover op dislike */
+}

@@ -15,5 +15,6 @@ namespace MovieMate.DAL.Interfaces
         Task<int> AddAsync(Movie movie);
         Task<bool> UpdateAsync(Movie movie);
         Task<bool> DeleteAsync(int movieId);
+        Task<IEnumerable<Movie>> GetByIdsAsync(IEnumerable<int> movieIds);
     }
 }

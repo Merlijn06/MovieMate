@@ -6,11 +6,7 @@
 
 <div class="container mt-4">
 
-    @* --- SECTIE VOOR AANBEVOLEN FILMS (voor later) ---
-    @if (Model.RecommendedMovies.Any())
-    {
-    }
-    *@
+    
 
     <div class="movies-section">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -71,6 +67,58 @@
                     <p><a asp-page="/Admin/Movies/Create" class="btn btn-primary">Add New Movie</a></p>
                 }
             </div>
+        }
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated && Model.RecommendedMovies.Any())
+        {
+            <div class="movies-section mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="section-title">Top Picks For You <span class="arrow">→</span></h2>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-4">
+                    @foreach (var movie in Model.RecommendedMovies)
+                    {
+                        <div class="col">
+                            <div class="movie-card h-100">
+                                <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="movie-poster-link">
+                                    <img src="@(string.IsNullOrEmpty(movie.PosterURL) ? "/images/placeholder-poster.png" : movie.PosterURL)"
+                                         alt="@movie.Title poster" class="movie-poster">
+                                </a>
+                                <div class="movie-info">
+                                    <h5 class="movie-title">
+                                        <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="text-decoration-none movie-title-link">
+                                            @movie.Title
+                                        </a>
+                                    </h5>
+                                    <div class="movie-meta">
+                                        <span class="movie-rating">
+                                            <img src="~/images/StarIcon.png" alt="Rating star" class="rating-star-icon" /> @movie.AverageRating.ToString("0.0")
+                                        </span>
+                                        <a asp-page="/Movies/Details" asp-route-id="@movie.MovieId" class="info-icon-link">
+                                            <img src="~/images/InfoIcon.png" alt="More info" class="info-icon" />
+                                        </a>
+                                    </div>
+                                    <div class="feedback-buttons mt-2">
+                                        <form method="post" class="d-inline">
+                                            <input type="hidden" name="movieId" value="@movie.MovieId" />
+                                            <button type="submit" asp-page-handler="LikeRecommendation" class="btn btn-sm btn-feedback btn-like" title="I like this">
+                                                👍
+                                            </button>
+                                        </form>
+                                        <form method="post" class="d-inline">
+                                            <input type="hidden" name="movieId" value="@movie.MovieId" />
+                                            <button type="submit" asp-page-handler="DislikeRecommendation" class="btn btn-sm btn-feedback btn-dislike" title="Not interested">
+                                                👎
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <hr class="my-4" />
         }
     </div>
 </div>

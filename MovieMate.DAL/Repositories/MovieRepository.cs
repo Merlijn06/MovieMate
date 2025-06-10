@@ -94,5 +94,21 @@ namespace MovieMate.DAL.Repositories
             var sql = "DELETE FROM Movies WHERE MovieID = @MovieId;";
             return await connection.ExecuteAsync(sql, new { MovieId = movieId }) > 0;
         }
+
+        public async Task<IEnumerable<Movie>> GetByIdsAsync(IEnumerable<int> movieIds)
+        {
+            using var connection = CreateConnection();
+            var sql = @"
+                SELECT
+                    m.MovieID, m.Title, m.Genre, m.Description, m.ReleaseDate, m.PosterURL, m.CreatedAt, m.UpdatedAt,
+                    COALESCE(AVG(r.RatingValue), 0) AS AverageRating,
+                    COUNT(DISTINCT r.ReviewID) AS TotalRatings
+                FROM Movies m
+                LEFT JOIN Reviews r ON m.MovieID = r.MovieID
+                WHERE m.MovieID IN @MovieIds
+                GROUP BY m.MovieID, m.Title, m.Genre, m.Description, m.ReleaseDate, m.PosterURL, m.CreatedAt, m.UpdatedAt;
+            ";
+            return await connection.QueryAsync<Movie>(sql, new { MovieIds = movieIds });
+        }
     }
 }
