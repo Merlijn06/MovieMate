@@ -123,7 +123,6 @@ namespace MovieMate.BLL.Services
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            // Typically an admin-only operation
             return await _userRepository.GetAllAsync();
         }
     }

@@ -46,8 +46,6 @@ namespace MovieMate.BLL.Services
             }
 
             existingUser.IsAdmin = userToUpdate.IsAdmin;
-            // existingUser.Username = userToUpdate.Username; // Be careful with username changes due to uniqueness
-            // existingUser.Email = userToUpdate.Email; // Be careful with email changes due to uniqueness
 
             try
             {

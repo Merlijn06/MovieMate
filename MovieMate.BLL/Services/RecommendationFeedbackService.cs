@@ -41,7 +41,6 @@ namespace MovieMate.BLL.Services
 
             try
             {
-                // The DAL's AddOrUpdateFeedbackAsync handles insert or update logic
                 await _feedbackRepository.AddOrUpdateFeedbackAsync(userId, movieId, liked);
                 string action = liked ? "Liked Recommendation" : "Disliked Recommendation";
                 await _auditLogService.LogActionAsync(userId, action, $"MovieID: {movieId}");

@@ -32,7 +32,7 @@ namespace MovieMate.BLL.Services
                 UserId = userId,
                 Action = action,
                 Details = details,
-                Timestamp = DateTime.UtcNow // Uses UTC time
+                Timestamp = DateTime.UtcNow
             };
 
             try

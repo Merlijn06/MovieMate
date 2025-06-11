@@ -41,8 +41,6 @@ namespace MovieMate.BLL.Services
             return await _movieRepository.SearchByTitleAsync(title.Trim());
         }
 
-        // --- Admin Operations ---
-
         public async Task<ServiceResult<int>> AddMovieAsync(Movie movie, int? performingUserId)
         {
             if (string.IsNullOrWhiteSpace(movie.Title))
