@@ -19,12 +19,23 @@ namespace MovieMate.DAL.Repositories
             using var connection = CreateConnection();
             var sql = @"
                 SELECT
-                    WatchlistID, UserID, MovieID, AddedAt
-                FROM Watchlist
+                    w.WatchlistID, w.UserID, w.MovieID, w.AddedAt,
+                    m.MovieID, m.Title, m.Genre, m.Description, m.ReleaseDate, m.PosterURL, m.CreatedAt, m.UpdatedAt
+                FROM Watchlist w
+                JOIN Movies m ON w.MovieID = m.MovieID
                 WHERE UserID = @UserId
                 ORDER BY AddedAt DESC;";
 
-            return await connection.QueryAsync<WatchlistItem>(sql, new { UserId = userId });
+            return await connection.QueryAsync<WatchlistItem, Movie, WatchlistItem>(
+                sql,
+                (watchlistItem, movie) =>
+                {
+                    watchlistItem.Movie = movie;
+                    return watchlistItem;
+                },
+                new { UserId = userId },
+                splitOn: "MovieID"
+            );
         }
 
         public async Task<bool> AddToWatchlistAsync(int userId, int movieId)

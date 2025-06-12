@@ -41,12 +41,26 @@ namespace MovieMate.DAL.Repositories
         {
             using var connection = CreateConnection();
             var sql = @"
-                SELECT r.ReviewID, r.UserID, r.MovieID, r.RatingValue, r.Comment, r.CreatedAt, r.UpdatedAt, u.Username
+                SELECT 
+                    r.ReviewID, r.UserID, r.MovieID, r.RatingValue, r.Comment, r.CreatedAt, r.UpdatedAt, 
+                    u.Username,
+                    m.MovieID, m.Title, m.Genre, m.Description, m.ReleaseDate, m.PosterURL, m.CreatedAt, m.UpdatedAt
                 FROM Reviews r
                 JOIN Users u ON r.UserID = u.UserID
+                JOIN Movies m ON r.MovieID = m.MovieID
                 WHERE r.UserID = @UserId
                 ORDER BY r.CreatedAt DESC;";
-            return await connection.QueryAsync<Review>(sql, new { UserId = userId });
+            return await connection.QueryAsync<Review, User, Movie, Review>(
+                sql,
+                (review, user, movie) =>
+                {
+                    review.Username = user.Username;
+                    review.Movie = movie;
+                    return review;
+                },
+                new { UserId = userId },
+                splitOn: "Username,MovieID"
+            );
         }
 
         public async Task<Review?> GetReviewByUserAndMovieAsync(int userId, int movieId)

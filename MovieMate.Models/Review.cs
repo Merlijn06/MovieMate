@@ -17,5 +17,7 @@ namespace MovieMate.Models
         public DateTime UpdatedAt { get; set; }
 
         public string? Username { get; set; }
+
+        public Movie? Movie { get; set; } = new Movie(); 
     }
 }

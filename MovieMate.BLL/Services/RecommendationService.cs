@@ -41,28 +41,17 @@ namespace MovieMate.BLL.Services
                 var userWatchlistItems = await _watchlistRepository.GetWatchlistByUserIdAsync(userId);
                 var userFeedback = await _feedbackRepository.GetFeedbacksByUserAsync(userId);
 
-                var highlyRatedMovieIds = userReviews
-                    .Where(r => r.RatingValue >= 7.0m)
-                    .Select(r => r.MovieId);
-
-                var watchlistMovieIds = userWatchlistItems.Select(item => item.MovieId);
-
-                var likedFeedbackMovieIds = userFeedback
-                    .Where(f => f.Liked)
-                    .Select(f => f.MovieId);
-
-                var allPreferredMovieIds = new HashSet<int>(highlyRatedMovieIds);
-                allPreferredMovieIds.UnionWith(watchlistMovieIds);
-                allPreferredMovieIds.UnionWith(likedFeedbackMovieIds);
-
-                IEnumerable<Movie> preferredMovies = new List<Movie>();
-                if (allPreferredMovieIds.Any())
-                {
-                    preferredMovies = await _movieRepository.GetByIdsAsync(allPreferredMovieIds);
-                }
-
                 var preferredGenres = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                foreach (var movie in preferredMovies)
+
+                var highlyRatedMovies = userReviews
+                    .Where(r => r.RatingValue >= 7.0m && r.Movie != null)
+                    .Select(r => r.Movie!);
+
+                var watchlistMovies = userWatchlistItems
+                    .Where(item => item.Movie != null)
+                    .Select(item => item.Movie!);
+
+                foreach (var movie in highlyRatedMovies.Concat(watchlistMovies))
                 {
                     if (!string.IsNullOrWhiteSpace(movie.Genre))
                     {
@@ -93,8 +82,7 @@ namespace MovieMate.BLL.Services
                                            .Any(g => preferredGenres.Contains(g)))
                         .OrderByDescending(m => m.AverageRating)
                         .ThenByDescending(m => m.TotalRatings)
-                        .Take(count)
-                        .ToList();
+                        .Take(count);
                 }
                 else
                 {
@@ -102,21 +90,23 @@ namespace MovieMate.BLL.Services
                         .Where(m => !interactedMovieIds.Contains(m.MovieId))
                         .OrderByDescending(m => m.AverageRating)
                         .ThenByDescending(m => m.TotalRatings)
-                        .Take(count)
-                        .ToList();
+                        .Take(count);
                 }
 
-                if (recommendations.Count() < count)
+                var finalList = recommendations.ToList();
+
+                if (finalList.Count < count)
                 {
                     var fallbackMovies = allMovies
-                        .Where(m => !interactedMovieIds.Contains(m.MovieId) && !recommendations.Any(rec => rec.MovieId == m.MovieId))
+                        .Where(m => !interactedMovieIds.Contains(m.MovieId))
                         .OrderByDescending(m => m.AverageRating)
                         .ThenByDescending(m => m.TotalRatings)
-                        .Take(count - recommendations.Count());
-                    recommendations = recommendations.Concat(fallbackMovies).ToList();
+                        .Take(count - finalList.Count);
+
+                    finalList.AddRange(fallbackMovies);
                 }
 
-                return recommendations;
+                return finalList;
             }
             catch (Exception ex)
             {
