@@ -15,6 +15,5 @@ namespace MovieMate.BLL.Interfaces
 
         Task<User?> GetUserByIdAsync(int userId);
         Task<User?> GetUserByUsernameAsync(string username);
-        // Task<ServiceResult> UpdateUserProfileAsync(User user, int performingUserId); // Example: If users can update their own profile (email, etc.)
     }
 }

@@ -4,6 +4,7 @@ using MovieMate.DAL.Repositories;
 using MovieMate.BLL.Interfaces;
 using MovieMate.BLL.Services;
 using MovieMate.BLL.Interfaces.MovieMate.BLL.Interfaces;
+using MovieMate.BLL.Recommendations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,9 @@ builder.Services.AddScoped<IWatchlistService, WatchlistService>();
 builder.Services.AddScoped<IRecommendationFeedbackService, RecommendationFeedbackService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IAuditLogService, AuditLogService>();
+
+builder.Services.AddScoped<IRecommendationStrategy, HighRatingStrategy>();
+builder.Services.AddScoped<IRecommendationStrategy, WatchlistStrategy>();
 
 // --- Authentication and Authorization Setup ---
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

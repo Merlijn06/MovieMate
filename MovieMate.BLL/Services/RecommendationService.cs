@@ -1,4 +1,5 @@
 ﻿using MovieMate.BLL.Interfaces;
+using MovieMate.BLL.Recommendations;
 using MovieMate.DAL.Interfaces;
 using MovieMate.Models;
 using System;
@@ -15,17 +16,20 @@ namespace MovieMate.BLL.Services
         private readonly IReviewRepository _reviewRepository;
         private readonly IWatchlistRepository _watchlistRepository;
         private readonly IRecommendationFeedbackRepository _feedbackRepository;
+        private readonly IEnumerable<IRecommendationStrategy> _strategies;
 
         public RecommendationService(
             IMovieRepository movieRepository,
             IReviewRepository reviewRepository,
             IWatchlistRepository watchlistRepository,
-            IRecommendationFeedbackRepository feedbackRepository)
+            IRecommendationFeedbackRepository feedbackRepository,
+            IEnumerable<IRecommendationStrategy> strategies)
         {
             _movieRepository = movieRepository;
             _reviewRepository = reviewRepository;
             _watchlistRepository = watchlistRepository;
             _feedbackRepository = feedbackRepository;
+            _strategies = strategies;
         }
 
         public async Task<IEnumerable<Movie>> GetRecommendationsForUserAsync(int userId, int count)
@@ -37,21 +41,19 @@ namespace MovieMate.BLL.Services
 
             try
             {
-                var userReviews = await _reviewRepository.GetReviewsByUserIdAsync(userId);
-                var userWatchlistItems = await _watchlistRepository.GetWatchlistByUserIdAsync(userId);
-                var userFeedback = await _feedbackRepository.GetFeedbacksByUserAsync(userId);
+                var allPreferredMovies = new List<Movie>();
+                foreach (var strategy in _strategies)
+                {
+                    var preferredFromStrategy = await strategy.GetPreferredMoviesAsync(userId);
+                    allPreferredMovies.AddRange(preferredFromStrategy);
+                }
+
+                var uniquePreferredMovies = allPreferredMovies
+                    .GroupBy(m => m.MovieId)
+                    .Select(g => g.First());
 
                 var preferredGenres = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-                var highlyRatedMovies = userReviews
-                    .Where(r => r.RatingValue >= 7.0m && r.Movie != null)
-                    .Select(r => r.Movie!);
-
-                var watchlistMovies = userWatchlistItems
-                    .Where(item => item.Movie != null)
-                    .Select(item => item.Movie!);
-
-                foreach (var movie in highlyRatedMovies.Concat(watchlistMovies))
+                foreach (var movie in uniquePreferredMovies)
                 {
                     if (!string.IsNullOrWhiteSpace(movie.Genre))
                     {
@@ -62,6 +64,10 @@ namespace MovieMate.BLL.Services
                         }
                     }
                 }
+
+                var userReviews = await _reviewRepository.GetReviewsByUserIdAsync(userId);
+                var userWatchlistItems = await _watchlistRepository.GetWatchlistByUserIdAsync(userId);
+                var userFeedback = await _feedbackRepository.GetFeedbacksByUserAsync(userId);
 
                 var interactedMovieIds = new HashSet<int>();
                 interactedMovieIds.UnionWith(userReviews.Select(r => r.MovieId));

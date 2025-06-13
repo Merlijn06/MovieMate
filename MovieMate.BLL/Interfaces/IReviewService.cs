@@ -15,7 +15,6 @@ namespace MovieMate.BLL.Interfaces
         Task<IEnumerable<Review>> GetReviewsByUserAsync(int userId);
 
         Task<ServiceResult<Review>> AddOrUpdateReviewAsync(Review review, int performingUserId);
-        //Task<ServiceResult> DeleteReviewAsync(int reviewId, int performingUserId);
         Task<bool> CanUserReviewMovieAsync(int userId, int movieId);
     }
 }
