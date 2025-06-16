@@ -8,14 +8,14 @@ using MovieMate.Models;
 
 namespace MovieMate.BLL.Recommendations
 {
-    public class WatchlistStrategy : IRecommendationStrategy
+    public class WatchlistStrategy : IPreferenceSourceStrategy
     {
         private readonly IWatchlistRepository _watchlistRepository;
         public WatchlistStrategy(IWatchlistRepository watchlistRepository)
         {
             _watchlistRepository = watchlistRepository;
         }
-        public async Task<IEnumerable<Movie>> GetPreferredMoviesAsync(int userId)
+        public async Task<IEnumerable<Movie>> GetSourceMoviesAsync(int userId)
         {
             var userWatchlistItems = await _watchlistRepository.GetWatchlistByUserIdAsync(userId);
 

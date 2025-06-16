@@ -8,7 +8,7 @@ using MovieMate.Models;
 
 namespace MovieMate.BLL.Recommendations
 {
-    public class HighRatingStrategy : IRecommendationStrategy
+    public class HighRatingStrategy : IPreferenceSourceStrategy
     {
         private readonly IReviewRepository _reviewRepository;
 
@@ -17,7 +17,7 @@ namespace MovieMate.BLL.Recommendations
             _reviewRepository = reviewRepository;
         }
 
-        public async Task<IEnumerable<Movie>> GetPreferredMoviesAsync(int userId)
+        public async Task<IEnumerable<Movie>> GetSourceMoviesAsync(int userId)
         {
             var userReviews = await _reviewRepository.GetReviewsByUserIdAsync(userId);
 

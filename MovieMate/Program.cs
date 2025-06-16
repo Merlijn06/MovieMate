@@ -29,8 +29,10 @@ builder.Services.AddScoped<IRecommendationFeedbackService, RecommendationFeedbac
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddScoped<IAuditLogService, AuditLogService>();
 
-builder.Services.AddScoped<IRecommendationStrategy, HighRatingStrategy>();
-builder.Services.AddScoped<IRecommendationStrategy, WatchlistStrategy>();
+builder.Services.AddScoped<IPreferenceSourceStrategy, HighRatingStrategy>();
+builder.Services.AddScoped<IPreferenceSourceStrategy, WatchlistStrategy>();
+
+builder.Services.AddScoped<IMovieFinderStrategy, GenreBasedFinderStrategy>();
 
 // --- Authentication and Authorization Setup ---
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

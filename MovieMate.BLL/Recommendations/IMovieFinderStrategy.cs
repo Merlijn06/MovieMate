@@ -7,8 +7,8 @@ using MovieMate.Models;
 
 namespace MovieMate.BLL.Recommendations
 {
-    public interface IRecommendationStrategy
+    public interface IMovieFinderStrategy
     {
-        Task<IEnumerable<Movie>> GetPreferredMoviesAsync(int userId);
+        IEnumerable<Movie> FindCandidateMovies(IEnumerable<Movie> sourceMovies, IEnumerable<Movie> allMovies);
     }
 }

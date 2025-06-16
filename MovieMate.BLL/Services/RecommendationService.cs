@@ -13,23 +13,27 @@ namespace MovieMate.BLL.Services
     public class RecommendationService : IRecommendationService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IEnumerable<IPreferenceSourceStrategy> _sourceStrategies;
+        private readonly IEnumerable<IMovieFinderStrategy> _finderStrategies;
+
         private readonly IReviewRepository _reviewRepository;
         private readonly IWatchlistRepository _watchlistRepository;
         private readonly IRecommendationFeedbackRepository _feedbackRepository;
-        private readonly IEnumerable<IRecommendationStrategy> _strategies;
 
         public RecommendationService(
-            IMovieRepository movieRepository,
-            IReviewRepository reviewRepository,
-            IWatchlistRepository watchlistRepository,
-            IRecommendationFeedbackRepository feedbackRepository,
-            IEnumerable<IRecommendationStrategy> strategies)
+           IMovieRepository movieRepository,
+           IEnumerable<IPreferenceSourceStrategy> sourceStrategies,
+           IEnumerable<IMovieFinderStrategy> finderStrategies,
+           IReviewRepository reviewRepository,
+           IWatchlistRepository watchlistRepository,
+           IRecommendationFeedbackRepository feedbackRepository)
         {
             _movieRepository = movieRepository;
+            _sourceStrategies = sourceStrategies;
+            _finderStrategies = finderStrategies;
             _reviewRepository = reviewRepository;
             _watchlistRepository = watchlistRepository;
             _feedbackRepository = feedbackRepository;
-            _strategies = strategies;
         }
 
         public async Task<IEnumerable<Movie>> GetRecommendationsForUserAsync(int userId, int count)
@@ -41,29 +45,29 @@ namespace MovieMate.BLL.Services
 
             try
             {
-                var allPreferredMovies = new List<Movie>();
-                foreach (var strategy in _strategies)
-                {
-                    var preferredFromStrategy = await strategy.GetPreferredMoviesAsync(userId);
-                    allPreferredMovies.AddRange(preferredFromStrategy);
-                }
+                var sourceMoviesTasks = _sourceStrategies.Select(s => s.GetSourceMoviesAsync(userId));
+                var sourceMoviesResults = await Task.WhenAll(sourceMoviesTasks);
 
-                var uniquePreferredMovies = allPreferredMovies
+                var uniqueSourceMovies = sourceMoviesResults
+                    .SelectMany(movies => movies)
                     .GroupBy(m => m.MovieId)
                     .Select(g => g.First());
 
-                var preferredGenres = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                foreach (var movie in uniquePreferredMovies)
+                var allMoviesForFinding = await _movieRepository.GetAllAsync();
+                var candidateMovies = new List<Movie>();
+
+                if (uniqueSourceMovies.Any())
                 {
-                    if (!string.IsNullOrWhiteSpace(movie.Genre))
+                    foreach (var strategy in _finderStrategies)
                     {
-                        var genres = movie.Genre.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).Select(g => g.Trim());
-                        foreach (var genre in genres)
-                        {
-                            preferredGenres.Add(genre);
-                        }
+                        var candidates = strategy.FindCandidateMovies(uniqueSourceMovies, allMoviesForFinding);
+                        candidateMovies.AddRange(candidates);
                     }
                 }
+
+                var uniqueCandidateMovies = candidateMovies
+                    .GroupBy(m => m.MovieId)
+                    .Select(g => g.First());
 
                 var userReviews = await _reviewRepository.GetReviewsByUserIdAsync(userId);
                 var userWatchlistItems = await _watchlistRepository.GetWatchlistByUserIdAsync(userId);
@@ -73,50 +77,31 @@ namespace MovieMate.BLL.Services
                 interactedMovieIds.UnionWith(userReviews.Select(r => r.MovieId));
                 interactedMovieIds.UnionWith(userWatchlistItems.Select(item => item.MovieId));
                 interactedMovieIds.UnionWith(userFeedback.Select(f => f.MovieId));
+                interactedMovieIds.UnionWith(uniqueSourceMovies.Select(m => m.MovieId));
 
-                var allMovies = await _movieRepository.GetAllAsync();
+                var recommendations = uniqueCandidateMovies
+                    .Where(m => !interactedMovieIds.Contains(m.MovieId))
+                    .OrderByDescending(m => m.AverageRating)
+                    .ThenByDescending(m => m.TotalRatings)
+                    .Take(count)
+                    .ToList();
 
-                IEnumerable<Movie> recommendations;
-
-                if (preferredGenres.Any())
+                if (recommendations.Count < count)
                 {
-                    recommendations = allMovies
-                        .Where(m => !interactedMovieIds.Contains(m.MovieId))
-                        .Where(m => !string.IsNullOrWhiteSpace(m.Genre) &&
-                                    m.Genre.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
-                                           .Select(g => g.Trim())
-                                           .Any(g => preferredGenres.Contains(g)))
-                        .OrderByDescending(m => m.AverageRating)
-                        .ThenByDescending(m => m.TotalRatings)
-                        .Take(count);
-                }
-                else
-                {
-                    recommendations = allMovies
-                        .Where(m => !interactedMovieIds.Contains(m.MovieId))
-                        .OrderByDescending(m => m.AverageRating)
-                        .ThenByDescending(m => m.TotalRatings)
-                        .Take(count);
+                    var fallbackMovies = allMoviesForFinding
+                       .Where(m => !interactedMovieIds.Contains(m.MovieId) && !recommendations.Any(rec => rec.MovieId == m.MovieId))
+                       .OrderByDescending(m => m.AverageRating)
+                       .ThenByDescending(m => m.TotalRatings)
+                       .Take(count - recommendations.Count);
+
+                    recommendations.AddRange(fallbackMovies);
                 }
 
-                var finalList = recommendations.ToList();
-
-                if (finalList.Count < count)
-                {
-                    var fallbackMovies = allMovies
-                        .Where(m => !interactedMovieIds.Contains(m.MovieId))
-                        .OrderByDescending(m => m.AverageRating)
-                        .ThenByDescending(m => m.TotalRatings)
-                        .Take(count - finalList.Count);
-
-                    finalList.AddRange(fallbackMovies);
-                }
-
-                return finalList;
+                return recommendations;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error generating recommendations for user {userId}: {ex.Message}");
+                Console.WriteLine($"Error in GetRecommendationsForUserAsync for userId {userId}: {ex.Message}");
                 return Enumerable.Empty<Movie>();
             }
         }
