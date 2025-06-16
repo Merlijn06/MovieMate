@@ -13,6 +13,6 @@ namespace MovieMate.Models
         public int MovieId { get; set; }
         public DateTime AddedAt { get; set; }
 
-        public Movie? Movie { get; set; }
+        public required Movie Movie { get; set; }
     }
 }

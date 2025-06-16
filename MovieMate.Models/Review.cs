@@ -18,6 +18,6 @@ namespace MovieMate.Models
 
         public string? Username { get; set; }
 
-        public Movie? Movie { get; set; } = new Movie(); 
+        public Movie Movie { get; set; } = new Movie(); 
     }
 }
