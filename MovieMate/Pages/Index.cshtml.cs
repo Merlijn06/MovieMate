@@ -46,7 +46,15 @@ namespace MovieMate.WebApp.Pages
             {
                 var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 int.TryParse(userIdString, out int userId);
-                RecommendedMovies = await _recommendationService.GetRecommendationsForUserAsync(userId, 6);
+                var result = await _recommendationService.GetRecommendationsForUserAsync(userId, 6);
+                if (result.Success && result.Data != null)
+                {
+                    RecommendedMovies = result.Data;
+                }
+                else
+                {
+                    RecommendedMovies = Enumerable.Empty<Movie>();
+                }
             }
         }
 

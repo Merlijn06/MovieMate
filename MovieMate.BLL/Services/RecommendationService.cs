@@ -36,11 +36,11 @@ namespace MovieMate.BLL.Services
             _feedbackRepository = feedbackRepository;
         }
 
-        public async Task<IEnumerable<Movie>> GetRecommendationsForUserAsync(int userId, int count)
+        public async Task<ServiceResult<IEnumerable<Movie>>> GetRecommendationsForUserAsync(int userId, int count)
         {
             if (userId <= 0)
             {
-                return Enumerable.Empty<Movie>();
+                return new ServiceResult<IEnumerable<Movie>> { Success = false, ErrorMessage = "Invalid user ID provided." };
             }
 
             try
@@ -97,12 +97,16 @@ namespace MovieMate.BLL.Services
                     recommendations.AddRange(fallbackMovies);
                 }
 
-                return recommendations;
+                return new ServiceResult<IEnumerable<Movie>> { Success = true, Data = recommendations };
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in GetRecommendationsForUserAsync for userId {userId}: {ex.Message}");
-                return Enumerable.Empty<Movie>();
+                return new ServiceResult<IEnumerable<Movie>>
+                {
+                    Success = false,
+                    ErrorMessage = "An unexpected error occurred while generating recommendations."
+                };
             }
         }
     }

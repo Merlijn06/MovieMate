@@ -9,6 +9,6 @@ namespace MovieMate.BLL.Interfaces
 {
     public interface IRecommendationService
     {
-        Task<IEnumerable<Movie>> GetRecommendationsForUserAsync(int userId, int count);
+        Task<ServiceResult<IEnumerable<Movie>>> GetRecommendationsForUserAsync(int userId, int count);
     }
 }
