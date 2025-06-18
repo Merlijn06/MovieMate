@@ -45,11 +45,14 @@ namespace MovieMate.BLL.Services
 
             try
             {
-                var sourceMoviesTasks = _sourceStrategies.Select(s => s.GetSourceMoviesAsync(userId));
-                var sourceMoviesResults = await Task.WhenAll(sourceMoviesTasks);
+                var allPreferredMovies = new List<Movie>();
+                foreach (var strategy in _sourceStrategies)
+                {
+                    var preferredFromStrategy = await strategy.GetSourceMoviesAsync(userId);
+                    allPreferredMovies.AddRange(preferredFromStrategy);
+                }
 
-                var uniqueSourceMovies = sourceMoviesResults
-                    .SelectMany(movies => movies)
+                var uniqueSourceMovies = allPreferredMovies
                     .GroupBy(m => m.MovieId)
                     .Select(g => g.First());
 
